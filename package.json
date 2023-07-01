@@ -5,19 +5,21 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "vite build",
     "preview": "vite preview",
     "tauri": "tauri"
   },
   "dependencies": {
     "@tauri-apps/api": "^1.4.0",
     "naive-ui": "^2.34.4",
+    "pinia": "^2.1.4",
     "vue": "^3.3.4",
     "vue-router": "^4.2.2"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.4.0",
     "@types/node": "^18.16.19",
+    "@vicons/ionicons5": "^0.12.0",
     "@vitejs/plugin-vue": "^4.2.3",
     "typescript": "^4.9.5",
     "unplugin-auto-import": "^0.16.4",
