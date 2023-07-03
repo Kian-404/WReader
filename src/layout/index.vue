@@ -22,7 +22,7 @@
        <Content/>
       </n-layout-content>
       <n-layout-footer bordered>
-        成府路
+        <Footer/>
       </n-layout-footer>
     </n-layout>
   </n-layout>
@@ -35,6 +35,7 @@ export default {
 <script setup lang="ts">
 import Headers from './header.vue'
 import Content from './content.vue'
+import Footer from './footer.vue'
 import {
   HomeOutline as HomeIcon,
   BookOutline as BookIcon,
