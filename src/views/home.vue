@@ -29,6 +29,7 @@
 import { UploadCustomRequestOptions, UploadFileInfo } from 'naive-ui/es/components';
 import { ref } from 'vue';
 import * as localforage from 'localforage'
+import ePub from "epubjs";
 const uploadFile = ref(null);
 const handleBefore = () => {
   console.log('upload before')
@@ -37,7 +38,7 @@ const handleBefore = () => {
 const changFile = (file: UploadFileInfo) => {
   console.log(file)
 }
-const customRequest = ({
+const customRequest = async ({
       file,
       data,
       headers,
@@ -49,7 +50,16 @@ const customRequest = ({
     }: UploadCustomRequestOptions) => {
       console.log(file);
       let fileName =  file.name.split('.').shift()|| '';
-      localforage.setItem( fileName, file.file);
+      let file1 = await new Blob([file.file], { type: "application/epub+zip" }).arrayBuffer();
+      var book = ePub(file1, {});
+      let coverUrl = await book.coverUrl()
+      console.log(book);
+      console.log(coverUrl);
+      localforage.setItem( fileName, {
+        coverUrl: coverUrl,
+        file: file.file,
+        fileName
+      });
     }
 </script>
 

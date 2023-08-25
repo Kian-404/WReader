@@ -2,8 +2,13 @@
   <div>
     <n-grid cols="2 s:3 m:4 l:5 xl:6 2xl:7" responsive="screen" :x-gap="12" :y-gap="8">
       <n-grid-item v-for="item in bookList">
-        <n-card title="卡片" @click="showBook(item)">
-          {{ item }}
+        <n-card title="卡片" @click="showBook(item.fileName)">
+          {{ item.fileName }}
+          <n-image
+            width="100"
+            :src="item.coverUrl"
+          />
+          <img :src="item.coverUrl" alt="">
         </n-card>
       </n-grid-item>
     </n-grid>
@@ -17,13 +22,18 @@
 import * as localforage from "localforage";
 import { ref } from "vue";
 import ePub from "epubjs";
-let bookList = ref<string[]>([]);
+let bookList = ref<any[]>([]);
 localforage
   .keys()
   .then(function (keys) {
     // 包含所有 key 名的数组
     console.log(keys);
-    bookList.value = keys;
+    keys.map(async (key: string) => {
+      let a =await localforage.getItem(key)
+      console.log(a)
+      bookList.value.push(a);
+    })
+    // bookList.value = keys;
   })
   .catch(function (err) {
     // 当出错时，此处代码运行
@@ -37,8 +47,12 @@ const showBook = (book: any) => {
     console.log(res);
     console.log(ePub);
     // var Book = ePub({ restore: true });
-    let file = await new Blob([res], { type: "application/epub+zip" }).arrayBuffer();
+    let file = await new Blob([res.file], { type: "application/epub+zip" }).arrayBuffer();
     var book = ePub(file, {});
+    let coverUrl = await book.coverUrl()
+    console.log(book);
+    console.log(coverUrl);
+    
     var rendition = book.renderTo("area", { flow: "scrolled-doc", width: "900", height: "600" });
     var displayed = rendition.display();
     var next: any = document.getElementById("next");
