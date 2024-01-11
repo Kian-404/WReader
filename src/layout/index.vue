@@ -84,7 +84,16 @@ const menuOptions = [
     icon: renderIcon(ReaderIcon)
   },
   {
-    label: '书签',
+    label: () =>
+      h(
+        RouterLink,
+        {
+           to: {
+            path: '/bookmark'
+          }
+        },
+        { default: () => '书签' }
+      ),
     key: 'book-marks',
     icon: renderIcon(BookmarksIcon),
   },

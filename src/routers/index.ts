@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from "vue-router";
 
 const BookAll = () => import('../views/all.vue');
 const BookHome = () => import("../views/home.vue");
+const BookMark = () => import("../views/bookmark.vue");
 
 // 2. 定义一些路由
 // 每个路由都需要映射到一个组件。
@@ -9,6 +10,7 @@ const BookHome = () => import("../views/home.vue");
 const routes = [
   { path: "/", component: BookHome },
   { path: "/all", component: BookAll },
+  { path: "/bookmark", component: BookMark },
 ];
 
 // 3. 创建路由实例并传递 `routes` 配置
